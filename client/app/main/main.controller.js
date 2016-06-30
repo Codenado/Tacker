@@ -7,31 +7,30 @@
     constructor($http, $scope, socket) {
       this.$http = $http;
       this.socket = socket;
-      this.awesomeThings = [];
+      this.tacks = [];
+      this.photos = [
+    {id: 'p1', 'title': 'A nice day!', src: "http://lorempixel.com/300/400/"},
+    {id: 'p2', 'title': 'Puh!', src: "http://lorempixel.com/300/400/sports"},
+    {id: 'p3', 'title': 'What a club!', src: "http://lorempixel.com/300/400/nightlife"}
+]
+
 
       $scope.$on('$destroy', function() {
-        socket.unsyncUpdates('thing');
+        socket.unsyncUpdates('tack');
       });
     }
 
+
+
     $onInit() {
-      this.$http.get('/api/things')
+      this.$http.get('/api/tacks')
         .then(response => {
-          this.awesomeThings = response.data;
-          this.socket.syncUpdates('thing', this.awesomeThings);
+          this.tacks = response.data;
+          this.socket.syncUpdates('tack', this.tacks);
         });
-    }
+  }
 
-    addThing() {
-      if (this.newThing) {
-        this.$http.post('/api/things', {
-          name: this.newThing
-        });
-        this.newThing = '';
-      }
-    }
-
-    deleteThing(thing) {
+  deleteThing(thing) {
       this.$http.delete('/api/things/' + thing._id);
     }
   }

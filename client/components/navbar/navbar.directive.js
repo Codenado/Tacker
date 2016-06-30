@@ -3,7 +3,7 @@
 angular.module('tackiApp')
   .directive('navbar', () => ({
     templateUrl: 'components/navbar/navbar.html',
-    restrict: 'E',
+    //restrict: 'E',
     controller: 'NavbarController',
     controllerAs: 'nav'
   }));

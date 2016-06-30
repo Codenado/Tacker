@@ -3,40 +3,40 @@
 var app = require('../..');
 import request from 'supertest';
 
-var newThing;
+var newTack;
 
-describe('Thing API:', function() {
+describe('Tack API:', function() {
 
-  describe('GET /api/things', function() {
-    var things;
+  describe('GET /api/tacks', function() {
+    var tacks;
 
     beforeEach(function(done) {
       request(app)
-        .get('/api/things')
+        .get('/api/tacks')
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           if (err) {
             return done(err);
           }
-          things = res.body;
+          tacks = res.body;
           done();
         });
     });
 
     it('should respond with JSON array', function() {
-      expect(things).to.be.instanceOf(Array);
+      expect(tacks).to.be.instanceOf(Array);
     });
 
   });
 
-  describe('POST /api/things', function() {
+  describe('POST /api/tacks', function() {
     beforeEach(function(done) {
       request(app)
-        .post('/api/things')
+        .post('/api/tacks')
         .send({
-          name: 'New Thing',
-          info: 'This is the brand new thing!!!'
+          name: 'New Tack',
+          info: 'This is the brand new tack!!!'
         })
         .expect(201)
         .expect('Content-Type', /json/)
@@ -44,55 +44,55 @@ describe('Thing API:', function() {
           if (err) {
             return done(err);
           }
-          newThing = res.body;
+          newTack = res.body;
           done();
         });
     });
 
-    it('should respond with the newly created thing', function() {
-      expect(newThing.name).to.equal('New Thing');
-      expect(newThing.info).to.equal('This is the brand new thing!!!');
+    it('should respond with the newly created tack', function() {
+      expect(newTack.name).to.equal('New Tack');
+      expect(newTack.info).to.equal('This is the brand new tack!!!');
     });
 
   });
 
-  describe('GET /api/things/:id', function() {
-    var thing;
+  describe('GET /api/tacks/:id', function() {
+    var tack;
 
     beforeEach(function(done) {
       request(app)
-        .get('/api/things/' + newThing._id)
+        .get('/api/tacks/' + newTack._id)
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           if (err) {
             return done(err);
           }
-          thing = res.body;
+          tack = res.body;
           done();
         });
     });
 
     afterEach(function() {
-      thing = {};
+      tack = {};
     });
 
-    it('should respond with the requested thing', function() {
-      expect(thing.name).to.equal('New Thing');
-      expect(thing.info).to.equal('This is the brand new thing!!!');
+    it('should respond with the requested tack', function() {
+      expect(tack.name).to.equal('New Tack');
+      expect(tack.info).to.equal('This is the brand new tack!!!');
     });
 
   });
 
-  describe('PUT /api/things/:id', function() {
-    var updatedThing;
+  describe('PUT /api/tacks/:id', function() {
+    var updatedTack;
 
     beforeEach(function(done) {
       request(app)
-        .put('/api/things/' + newThing._id)
+        .put('/api/tacks/' + newTack._id)
         .send({
-          name: 'Updated Thing',
-          info: 'This is the updated thing!!!'
+          name: 'Updated Tack',
+          info: 'This is the updated tack!!!'
         })
         .expect(200)
         .expect('Content-Type', /json/)
@@ -100,27 +100,27 @@ describe('Thing API:', function() {
           if (err) {
             return done(err);
           }
-          updatedThing = res.body;
+          updatedTack = res.body;
           done();
         });
     });
 
     afterEach(function() {
-      updatedThing = {};
+      updatedTack = {};
     });
 
-    it('should respond with the updated thing', function() {
-      expect(updatedThing.name).to.equal('Updated Thing');
-      expect(updatedThing.info).to.equal('This is the updated thing!!!');
+    it('should respond with the updated tack', function() {
+      expect(updatedTack.name).to.equal('Updated Tack');
+      expect(updatedTack.info).to.equal('This is the updated tack!!!');
     });
 
   });
 
-  describe('DELETE /api/things/:id', function() {
+  describe('DELETE /api/tacks/:id', function() {
 
     it('should respond with 204 on successful removal', function(done) {
       request(app)
-        .delete('/api/things/' + newThing._id)
+        .delete('/api/tacks/' + newTack._id)
         .expect(204)
         .end((err, res) => {
           if (err) {
@@ -130,9 +130,9 @@ describe('Thing API:', function() {
         });
     });
 
-    it('should respond with 404 when thing does not exist', function(done) {
+    it('should respond with 404 when tack does not exist', function(done) {
       request(app)
-        .delete('/api/things/' + newThing._id)
+        .delete('/api/tacks/' + newTack._id)
         .expect(404)
         .end((err, res) => {
           if (err) {
